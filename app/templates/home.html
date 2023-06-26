@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" 
+            integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <!--FontAwesome CDN-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+            integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+        <!--Chartjs CDN-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+        <!--custom CSS-->
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+        <title> Home Page</title>
+    </head>
+    <body>
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+            <div class="container">
+                <a class="navbar-brand text-white" href="{% url 'home' %}">E-epicier</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link text-white" href="{% url 'home' %}">Tableau De Bord <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link text-white" href="{% url 'admin' %}">Admin Profile <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'logout' %}">log out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--End Navbar-->
+
+    <!--Topside-->
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header bg-success text-center text-white">
+                        Information
+                    </div>
+                    <div class="card-body text-center">
+                        <marquee behavior="" direction="">
+                            <h3 class="my-4"> Le fournisseur Jaouda à payer le 15 mars </h3>
+                        </marquee>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header bg-success text-center text-white">
+                        Statistics
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <a class="text-decoration-none text-dark" href="{% url 'clients' %}">
+                                    <div class="card my-card shadow text-center p-3 ">
+                                        <h4>Client </h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-3 ">
+                                <a class="text-decoration-none text-dark" href="{% url 'products' %}">
+                                    <div class="card my-card shadow text-center p-3 ">
+                                        <h4>Produit   </h4>
+                                    </div>
+                                </a>
+                            </div>
+                           
+                            <div class="col-md-3 ">
+                                <a class="text-decoration-none text-dark" href="{% url 'fournisseurs' %}">
+                                    <div class="card my-card shadow text-center p-3 ">
+                                        <h4> Fournisseur   </h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a class="text-decoration-none text-dark" href="{% url 'credit_list' %}">
+                                    <div class="card my-card shadow text-center p-3 ">
+                                        <h4>Crédit   </h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-3 ">
+                                <a class="text-decoration-none text-dark" href="{% url 'ca' %}">
+                                    <div class="card my-card shadow text-center p-3 ">
+                                        <h4>Chiffre d'affaire </h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+    <!--End Topside-->
+    <!--Graphs-->
+    <div class="container">
+        <div class="row my-1">
+            <div class="col-md-12">
+                <div class="container">
+                    <div class="row my-1">
+                        <div class="col-md-6">
+                            <div class="bg-white">
+                                <canvas id="myChart1" width="400" height="300"></canvas>
+                                <script>
+                                    var ctx = document.getElementById('myChart1').getContext('2d');
+                                    var myChart1 = new Chart(ctx, {
+                                        type: 'pie',
+                                        data: {
+                                            labels: ['clients satisfaits', 'réclamations du retard', 'réclamations sur le service', 'réclamations sur les produits deféctueux', 'mauvaise copréhension du besoin' ],
+                                             
+                                            datasets: [{
+                                                label: 'Avis ds clients le mois Février ',
+                                                data: [550,84,20,15,30 ],
+                                                backgroundColor: [
+                                                    'rgba(255, 99, 132, 1)',
+                                                    'rgba(54, 162, 235, 1)',
+                                                    'rgba(255, 206, 86, 1)',
+                                                    'rgba(75, 192, 192, 1)',
+                                                    'rgba(153, 102, 255, 1)',
+                                                     
+                                                ],
+                                                borderColor: [
+                                                    'rgba(255, 99, 132, 1)',
+                                                    'rgba(54, 162, 235, 1)',
+                                                    'rgba(255, 206, 86, 1)',
+                                                    'rgba(75, 192, 192, 1)',
+                                                    'rgba(153, 102, 255, 1)',
+                                                     
+                                                ],
+                                                borderWidth: 1
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                yAxes: [{
+                                                    ticks: {
+                                                        beginAtZero: true
+                                                    }
+                                                }]
+                                            }
+                                        }
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="bg-white">
+                                <canvas id="myChart" width="300" height="300"></canvas>
+                                <script>
+                                    var ctx = document.getElementById('myChart').getContext('2d');
+                                    var myChart = new Chart(ctx, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: ['Eau et Boissons', 'légumes', 'Entretien,Nettoyage', 'Crémerie,Oeufs', 'Epicerie', 'Fruits'],
+                                            datasets: [{
+                                                label: 'Catégorie',
+                                                data: [231, 55, 145, 90, 245, 37],
+                                                backgroundColor: [
+                                                    'rgba(255, 99, 132, 1)',
+                                                    'rgba(54, 162, 235, 1)',
+                                                    'rgba(255, 206, 86, 1)',
+                                                    'rgba(75, 192, 192, 1)',
+                                                    'rgba(153, 102, 255, 1)',
+                                                    'rgba(255, 159, 64, 1)'
+                                                ],
+                                                borderColor: [
+                                                    'rgba(255, 99, 132, 1)',
+                                                    'rgba(54, 162, 235, 1)',
+                                                    'rgba(255, 206, 86, 1)',
+                                                    'rgba(75, 192, 192, 1)',
+                                                    'rgba(153, 102, 255, 1)',
+                                                    'rgba(255, 159, 64, 1)'
+                                                ],
+                                                borderWidth: 1
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                yAxes: [{
+                                                    ticks: {
+                                                        beginAtZero: true
+                                                    }
+                                                }]
+                                            }
+                                        }
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <!--End Graphs-->
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des crédits</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+  </head>
+  
+  <body>
+    <h1>Liste des crédits</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Crédit initial</th>
+          <th>Date de création</th>
+          <th>Solde</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for credit in credits %}
+        <tr>
+          <td>{{ credit.id_client }}</td>
+          <td>{{ credit.credit }}DH</td>
+          <td>{{ credit.date_credit }}</td>
+          <td>{{ credit.solde }}DH</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4">Aucun crédit disponible.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des crédits</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+	<title>Liste des paiements</title>
+</head>
+<body>
+    <h1>Liste des paiements</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Date de paiement</th>
+          <th>Solde</th>
+          <th>Crédit</th>
+        </tr>
+      </thead>
+      	<tbody>
+		{% for paiement in paiements %}
+		<tr>
+			<td>{{ paiement.date_paiement }}</td>
+			<td>{{ paiement.montant }}DH</td>
+			<td>{{ paiement.credit }}</td>
+			
+		</tr>
+		
+		{% endfor %}
+		</tbody>
+ 	</table>
+</body>
+</html>
